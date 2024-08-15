@@ -3,11 +3,10 @@ const puppeteer = require('puppeteer');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config();
 
 // Inicializa o aplicativo Express
 const app = express();
-
-require('dotenv').config();
 
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
@@ -54,8 +53,8 @@ app.get('/scrape', async (req, res) => {
         const titulo = cells[0].innerText.trim();
         const descricao = cells[1].innerText.trim().replace('Mostrar mais', '').trim();
         const periodo = cells[2].innerText.trim();
-        const editalUrl = cells[3].querySelector('a').href;
-        const paginaUrl = cells[4].querySelector('a').href;
+        const editalUrl = cells[3].querySelector('a') ? cells[3].querySelector('a').href : '';
+        const paginaUrl = cells[4].querySelector('a') ? cells[4].querySelector('a').href : '';
 
         if (!titulo.startsWith('PSIE')) {
           processos.push({
@@ -89,13 +88,17 @@ app.post('/atualizar', async (req, res) => {
   try {
     const { processosAtualizados } = req.body;
 
+    if (!Array.isArray(processosAtualizados)) {
+      return res.status(400).send('Dados inválidos.');
+    }
+
     // Atualiza os processos na coleção
     await Processo.deleteMany({});
     await Processo.insertMany(processosAtualizados);
 
     res.send('Dados atualizados com sucesso!');
   } catch (error) {
-    console.error('Erro ao atualizar os dados na API:', error.response ? error.response.data : error.message);
+    console.error('Erro ao atualizar os dados na API:', error.message);
     res.status(500).send('Erro ao atualizar os dados na API');
   }
 });
