@@ -7,7 +7,6 @@ const path = require('path');
 // Inicializa o aplicativo Express
 const app = express();
 
-
 require('dotenv').config();
 
 const mongoURI = process.env.MONGO_URI;
@@ -37,7 +36,10 @@ const Processo = mongoose.model('Processo', processoSchema);
 // Rota para iniciar o scraping e atualizar o banco de dados
 app.get('/scrape', async (req, res) => {
   try {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     const url = 'https://selecao-login.app.ufgd.edu.br/';
     
@@ -98,21 +100,23 @@ app.post('/atualizar', async (req, res) => {
   }
 });
 
+// Rota para obter processos abertos
 app.get('/processosAbertos', async (req, res) => {
-    try {
-      const processos = await Processo.find({});
-      res.json(processos);
-    } catch (error) {
-      console.error('Erro ao buscar processos atualizados:', error.message);
-      res.status(500).send('Erro ao buscar processos atualizados');
-    }
-  })
+  try {
+    const processos = await Processo.find({});
+    res.json(processos);
+  } catch (error) {
+    console.error('Erro ao buscar processos atualizados:', error.message);
+    res.status(500).send('Erro ao buscar processos atualizados');
+  }
+});
 
 // Rota para servir o arquivo index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/pages', 'index.html'));
 });
 
+// Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
