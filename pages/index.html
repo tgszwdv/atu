@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scraping e Atualização</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Dados de Scraping</h1>
+  <button id="scrapeButton">Iniciar Scraping</button>
+  <button id="updateButton" disabled>Atualizar Tabela da Página</button>
+  <button id="showUpdatedDataButton">Mostrar Dados Atualizados</button>
+  
+  <h2>Dados do Scraping</h2>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Período</th>
+        <th>URL</th>
+        <th>Edital</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados do scraping serão inseridos aqui -->
+    </tbody>
+  </table>
+  
+  <h2>Dados Atualizados</h2>
+  <table id="updatedDataTable">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Período</th>
+        <th>URL</th>
+        <th>Edital</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados atualizados serão inseridos aqui -->
+    </tbody>
+  </table>
+  
+  <script src="script.js"></script>
+</body>
+</html>
