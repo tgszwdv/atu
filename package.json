@@ -5,6 +5,7 @@
   "main": "api/server.js",
   "scripts": {
     "start": "node api/server.js"
+     "postinstall": "npx puppeteer install"
   },
   "keywords": [],
   "author": "",
