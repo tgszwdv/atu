@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 // Configuração do middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'pages')));
+app.use(express.static(path.join(__dirname, '/pages')));
 
 // Conectar ao MongoDB Atlas
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -110,7 +110,7 @@ app.get('/processosAbertos', async (req, res) => {
 
 // Rota para servir o arquivo index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pages', 'index.html'));
+  res.sendFile(path.join(__dirname, '/pages', 'index.html'));
 });
 
 app.listen(port, () => {
