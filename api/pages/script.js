@@ -4,7 +4,7 @@
 
 document.getElementById('scrapeButton').addEventListener('click', async () => {
   try {
-      const response = await fetch('http://localhost:3000/scrape');
+      const response = await fetch('https://atu.onrender.com/scrape');
       const data = await response.json();
 
       const tableBody = document.querySelector('#dataTable tbody');
@@ -42,7 +42,7 @@ document.getElementById('updateButton').addEventListener('click', async () => {
           };
       });
 
-      const response = await fetch('http://localhost:3000/atualizar', {
+      const response = await fetch('https://atu.onrender.com/atualizar', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ document.getElementById('updateButton').addEventListener('click', async () => {
 
 document.getElementById('showUpdatedDataButton').addEventListener('click', async () => {
   try {
-      const response = await fetch('http://localhost:3000/processosAbertos');
+      const response = await fetch('https://atu.onrender.com/processosAbertos');
       const data = await response.json();
 
       const tableBody = document.querySelector('#updatedDataTable tbody');
