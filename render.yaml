@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: my-app
+    env: docker
+    dockerfile_path: ./Dockerfile
+    plan: free
+    build_command: npm ci
+    start_command: node api/server.js
+    port: 3000
