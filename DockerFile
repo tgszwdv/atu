@@ -2,10 +2,18 @@ FROM ghcr.io/puppeteer/puppeteer:22.8.2
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-
+    
 WORKDIR /usr/src/app
 
+# Copia o package.json e o package-lock.json
 COPY package*.json ./
+
+# Instala as dependências
 RUN npm ci
+
+# Copia o restante dos arquivos para o contêiner
 COPY . .
-CMD  ["node","api/server.js"]
+
+
+# Comando para iniciar a aplicação
+CMD ["node", "api/server.js"]
