@@ -1,10 +1,12 @@
 FROM ghcr.io/puppeteer/puppeteer:22.8.2
 
-ENV PUPPTEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPTEER_EXECUTABLE_PATCH=/usr/bin/google-chrome-stable
-    
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+
 WORKDIR /usr/src/app
-COPY package.json
+
+COPY package*.json ./
 RUN npm ci
-COPY ..
+COPY . .
+
 CMD  ["node","api/server.js"]
