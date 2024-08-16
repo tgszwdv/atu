@@ -6,4 +6,4 @@ services:
     plan: free
     build_command: npm ci
     start_command: node api/server.js
-    port: 3000
+ 
